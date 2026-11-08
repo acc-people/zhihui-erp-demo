@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="智汇 ERP · 面向中小企业的一体化经营管理台演示。涵盖员工、客户、订单、库存与经营报表。">
+  <meta name="description" content="智汇 ERP · 面向智能硬件制造企业的一体化经营管理台演示。涵盖生产工单、设备管理、员工、客户、订单、库存与经营报表。">
   <meta name="theme-color" content="#07172b">
-  <title>智汇 ERP · 中小企业经营管理台</title>
+  <title>智汇 ERP · 智能制造经营管理台</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%232f63e8'/%3E%3Cstop offset='1' stop-color='%2316c9bd'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Cpath d='M9 23h3.4v-6.8H9V23Zm5.8 0h3.4V9h-3.4v14Zm5.8 0H24v-9.7h-3.4V23Z' fill='%23fff'/%3E%3C/svg%3E">
   <script>
     try {
@@ -191,6 +191,33 @@
       <symbol id="i-more" viewBox="0 0 24 24">
         <circle cx="5" cy="12" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle>
       </symbol>
+      <symbol id="i-factory" viewBox="0 0 24 24">
+        <path d="M3 21V10l6 3.5V10l6 3.5V10l6 3.5V21"></path>
+        <path d="M3 21h18M7 21v-3M12 21v-3M17 21v-3M4 10V4h3v6"></path>
+      </symbol>
+      <symbol id="i-chip" viewBox="0 0 24 24">
+        <rect x="6" y="6" width="12" height="12" rx="2"></rect>
+        <path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"></path>
+      </symbol>
+      <symbol id="i-wrench" viewBox="0 0 24 24">
+        <path d="M15 3a5 5 0 0 0-4.4 7.3L4 16.9a2.1 2.1 0 0 0 3 3l6.6-6.6A5 5 0 0 0 21 9a5 5 0 0 0-.4-2L17 9.6l-2.6-2.6L17 4.4A5 5 0 0 0 15 3Z"></path>
+      </symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><path d="m7 4 13 8-13 8z"></path></symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"></path></symbol>
+      <symbol id="i-gauge" viewBox="0 0 24 24">
+        <path d="M12 21a9 9 0 1 1 9-9"></path>
+        <path d="m12 12 4.5-4.5"></path>
+        <path d="M3.4 14h2M6.4 8.4l1.4 1.4M11 5v2M18.6 8.4l-1.4 1.4"></path>
+      </symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24">
+        <path d="m12 3 9 5-9 5-9-5z"></path>
+        <path d="m3 12 9 5 9-5M3 16.5l9 5 9-5"></path>
+      </symbol>
+      <symbol id="i-clipboard" viewBox="0 0 24 24">
+        <rect x="5" y="4" width="14" height="17" rx="2.2"></rect>
+        <path d="M9 4.5V3h6v1.5M9 11h6M9 15h3.5M14.5 15l1.6 1.6L19 14"></path>
+      </symbol>
+      <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 5 12 2.5-6h4"></path></symbol>
     </defs>
   </svg>
 
@@ -202,26 +229,26 @@
           <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
           <span class="brand__copy">
             <span class="brand__name">智汇 ERP <em>PRO</em></span>
-            <span class="brand__sub">ZHIHUI · BUSINESS OS</span>
+            <span class="brand__sub">ZHIHUI · SMART MANUFACTURING</span>
           </span>
         </div>
         <span class="login-env">DEMO · 演示环境</span>
       </div>
 
       <div class="login-copy">
-        <span class="login-badge"><span><svg class="icon icon--xs"><use href="#i-sparkles"></use></svg></span>为成长型企业而设计</span>
-        <h1>让经营数据<br><em>成为增长信号。</em></h1>
-        <p>连接人、货、客与订单，把分散的经营动作收进一个清晰的工作台。看得见的库存，跟得住的订单，算得清的增长。</p>
+        <span class="login-badge"><span><svg class="icon icon--xs"><use href="#i-sparkles"></use></svg></span>为智能硬件制造企业而设计</span>
+        <h1>让产线数据<br><em>成为交付确定性。</em></h1>
+        <p>把销售订单拆成生产工单，让产线、设备与品质数据在同一条链路上流转。看得见在制工单，盯得住设备状态，算得清良率与 OEE。</p>
         <div class="login-signals">
           <span class="login-signal"><svg class="icon icon--xs"><use href="#i-users"></use></svg>120 人协同团队</span>
-          <span class="login-signal"><svg class="icon icon--xs"><use href="#i-boxes"></use></svg>进销存一体化</span>
-          <span class="login-signal"><svg class="icon icon--xs"><use href="#i-chart"></use></svg>经营数据实时可视</span>
+          <span class="login-signal"><svg class="icon icon--xs"><use href="#i-factory"></use></svg>3 条自有产线</span>
+          <span class="login-signal"><svg class="icon icon--xs"><use href="#i-activity"></use></svg>工单与设备实时联动</span>
         </div>
 
         <div class="login-preview" aria-hidden="true">
           <div class="preview-topbar">
-            <span class="preview-topbar__label"><svg class="icon icon--xs"><use href="#i-grid"></use></svg>经营驾驶舱 / 本月概览</span>
-            <span class="preview-live">LIVE SYNC</span>
+            <span class="preview-topbar__label"><svg class="icon icon--xs"><use href="#i-grid"></use></svg>智造驾驶舱 / 本月概览</span>
+            <span class="preview-live">MES SYNC</span>
           </div>
           <div class="preview-kpis">
             <div class="preview-kpi">
@@ -230,14 +257,14 @@
               <i>+27.3% MoM</i>
             </div>
             <div class="preview-kpi">
-              <small>重点订单</small>
-              <b>20</b>
-              <i>8 笔本月新增</i>
+              <small>在产工单</small>
+              <b>8</b>
+              <i>3 条产线协同</i>
             </div>
             <div class="preview-kpi">
-              <small>库存健康度</small>
-              <b>92.4</b>
-              <i>4 项待补货</i>
+              <small>设备综合 OEE</small>
+              <b>86.4</b>
+              <i>9 台设备运行中</i>
             </div>
           </div>
           <div class="preview-chart">
@@ -266,15 +293,15 @@
               </g>
             </svg>
             <div class="preview-float">
-              <span>库存周转率</span>
-              <strong>↑ 18.4%</strong>
+              <span>设备综合效率</span>
+              <strong>↑ 6.2%</strong>
             </div>
           </div>
         </div>
       </div>
 
       <div class="login-brand__foot">
-        <span>© 2026 智汇科技 · 仅作为作品集演示</span>
+        <span>© 2026 智汇智造 · 仅作为作品集演示</span>
         <a href="https://deerflow.tech" target="_blank" rel="noopener noreferrer">Created By Deerflow</a>
       </div>
     </section>
@@ -286,7 +313,7 @@
             <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
             <span class="brand__copy">
               <span class="brand__name">智汇 ERP</span>
-              <span class="brand__sub">ZHIHUI · BUSINESS OS</span>
+              <span class="brand__sub">ZHIHUI · SMART MFG</span>
             </span>
           </div>
           <span class="login-env" style="border-color: var(--line); background: var(--surface-soft); color: var(--muted);">演示环境</span>
@@ -295,7 +322,7 @@
         <div class="login-heading">
           <span class="login-eyebrow">Welcome back</span>
           <h2>登录智汇工作台</h2>
-          <p>用一个账号，掌握团队、客户与每一笔经营进展。</p>
+          <p>用一个账号，掌握团队、客户、产线设备与每一笔交付进展。</p>
         </div>
 
         <form class="login-form" id="loginForm" novalidate>
@@ -343,7 +370,7 @@
       </div>
 
       <div class="login-form-foot">
-        <span>© 2026 智汇科技 · 中小企业经营管理台</span><br>
+        <span>© 2026 智汇智造 · 智能制造经营管理台</span><br>
         <a href="https://deerflow.tech" target="_blank" rel="noopener noreferrer">Created By Deerflow</a>
       </div>
     </section>
@@ -357,17 +384,17 @@
           <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
           <span class="brand__copy">
             <span class="brand__name">智汇 ERP</span>
-            <span class="brand__sub">ZHIHUI · BUSINESS OS</span>
+            <span class="brand__sub">ZHIHUI · SMART MFG</span>
           </span>
         </a>
-        <span class="sidebar__version">v2.4</span>
+        <span class="sidebar__version">v2.5</span>
       </div>
 
       <div class="workspace-card">
         <span class="workspace-card__mark"><svg class="icon"><use href="#i-building"></use></svg></span>
         <span class="workspace-card__copy">
           <span class="workspace-card__label">当前工作空间</span>
-          <span class="workspace-card__name" id="sidebarCompanyName">深圳智汇科技有限公司</span>
+          <span class="workspace-card__name" id="sidebarCompanyName">深圳智汇智能制造有限公司</span>
         </span>
         <span class="workspace-card__dot" title="工作空间运行中"></span>
       </div>
@@ -378,6 +405,19 @@
           <a class="nav-item" href="#/dashboard" data-view="dashboard" title="工作台">
             <svg class="icon"><use href="#i-grid"></use></svg>
             <span class="nav-label">工作台</span>
+          </a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section__label">制造运营</div>
+          <a class="nav-item" href="#/production" data-view="production" title="生产管理">
+            <svg class="icon"><use href="#i-factory"></use></svg>
+            <span class="nav-label">生产管理</span>
+            <span class="nav-badge nav-badge--alert" id="productionNavBadge" hidden>0</span>
+          </a>
+          <a class="nav-item" href="#/devices" data-view="devices" title="设备管理">
+            <svg class="icon"><use href="#i-chip"></use></svg>
+            <span class="nav-label">设备管理</span>
+            <span class="nav-badge nav-badge--alert" id="devicesNavBadge" hidden>0</span>
           </a>
         </div>
         <div class="nav-section">
@@ -428,7 +468,7 @@
         </div>
       </div>
       <div class="sidebar-credit">
-        <span>ZHIHUI BUSINESS OS</span>
+        <span>ZHIHUI SMART MANUFACTURING</span>
         <a href="https://deerflow.tech" target="_blank" rel="noopener noreferrer" title="Created By Deerflow">Created By Deerflow</a>
       </div>
     </aside>
@@ -445,7 +485,7 @@
 
         <div class="topbar-context">
           <span class="topbar-context__dot"></span>
-          <span>运营中心</span>
+          <span>智造运营中心</span>
           <span class="topbar-context__sep">/</span>
           <strong id="topbarContextLabel">工作台</strong>
           <span class="topbar-context__sep">·</span>
@@ -454,7 +494,7 @@
 
         <button class="global-search" id="globalSearchBtn" type="button" aria-label="全局搜索，快捷键斜杠" title="全局搜索（/）">
           <svg class="icon icon--sm"><use href="#i-search"></use></svg>
-          <span class="global-search__text">搜索员工、客户、订单…</span>
+          <span class="global-search__text">搜索员工、订单、工单、设备…</span>
           <kbd>/</kbd>
         </button>
 
@@ -470,7 +510,7 @@
             <span class="avatar avatar--user" aria-hidden="true">王</span>
             <span class="user-trigger__copy">
               <span class="user-trigger__name">王敏</span>
-              <span class="user-trigger__role">运营主管</span>
+              <span class="user-trigger__role">运营总监</span>
             </span>
             <svg class="icon"><use href="#i-chevron-down"></use></svg>
           </button>
@@ -479,7 +519,7 @@
             <div class="popover-head">
               <div>
                 <div class="popover-head__title">通知中心</div>
-                <div class="popover-head__sub" id="notificationSub">3 条经营动态待查看</div>
+                <div class="popover-head__sub" id="notificationSub">经营与设备动态待查看</div>
               </div>
               <button class="text-btn" type="button" data-action="mark-all-read">全部已读</button>
             </div>
@@ -494,7 +534,7 @@
               <span class="avatar avatar--user" aria-hidden="true">王</span>
               <div>
                 <strong>王敏</strong>
-                <span>运营主管 · 深圳智汇科技</span>
+                <span>运营总监 · 深圳智汇智能制造</span>
               </div>
             </div>
             <div class="user-menu__list">
@@ -517,11 +557,11 @@
         <div class="view-root" id="viewRoot"></div>
         <footer class="app-footer">
           <div class="app-footer__left">
-            <span>智汇 ERP v2.4.1</span>
+            <span>智汇 ERP v2.5.0</span>
             <span class="app-footer__dot">·</span>
-            <span>演示数据仅保存在本机浏览器</span>
+            <span>生产 / 设备 / 供应链一体化演示数据</span>
             <span class="app-footer__mark"></span>
-            <span>只为演示，不连接真实后端</span>
+            <span>仅保存于本机浏览器，不连接真实后端</span>
           </div>
           <a class="app-footer__brand" href="https://deerflow.tech" target="_blank" rel="noopener noreferrer">Created By Deerflow</a>
         </footer>

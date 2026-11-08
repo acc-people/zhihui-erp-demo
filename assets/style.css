@@ -7171,3 +7171,1333 @@ table {
     padding-top: 32px;
   }
 }
+
+/* =========================================================
+   20. Manufacturing / MES（生产 + 设备）
+   ======================================================= */
+
+/* ---- KPI 5 列（设备页） ---- */
+.kpi-grid--5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+/* ---- 联动预警横幅 ---- */
+.mes-alert-banner {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  flex-wrap: wrap;
+  margin-bottom: 17px;
+  padding: 14px 16px;
+  border: 1px solid rgba(217, 78, 78, 0.24);
+  border-radius: 13px;
+  background:
+    linear-gradient(90deg, var(--danger-soft) 0%, var(--surface) 78%);
+  box-shadow: var(--shadow-xs);
+}
+
+.mes-alert-banner__icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 10px;
+  background: var(--danger);
+  color: #fff;
+}
+
+.mes-alert-banner__icon .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.mes-alert-banner__body {
+  min-width: 220px;
+  flex: 1;
+}
+
+.mes-alert-banner__title {
+  color: var(--danger);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.mes-alert-banner__desc {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.65;
+}
+
+.mes-alert-banner__actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  flex: none;
+}
+
+.mes-alert-banner--modal {
+  margin-bottom: 14px;
+}
+
+/* ---- 工作台：在产工单摘要 ---- */
+.mes-live-list {
+  padding: 0 21px 5px;
+}
+
+.mes-live-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.mes-live-item:last-child {
+  border-bottom: 0;
+}
+
+.mes-live-item.is-affected {
+  margin: 0 -8px;
+  padding: 10px 8px;
+  border-radius: 8px;
+  background: var(--danger-soft);
+}
+
+.mes-live-item__main {
+  min-width: 0;
+  flex: 1;
+}
+
+.mes-live-item__top {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  justify-content: space-between;
+}
+
+.mes-live-item__name {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text);
+  font-size: 11.5px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mes-live-item__meta {
+  margin-top: 2px;
+  color: var(--faint);
+  font-family: var(--font-num);
+  font-size: 8.5px;
+}
+
+.mes-live-item__progress {
+  position: relative;
+  height: 4px;
+  margin-top: 6px;
+  border-radius: 4px;
+  background: var(--surface-strong);
+  overflow: hidden;
+}
+
+.mes-live-item__progress i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transition: width 0.3s ease;
+}
+
+.mes-live-item.is-affected .mes-live-item__progress i {
+  background: linear-gradient(90deg, var(--danger), var(--warning));
+}
+
+.mes-live-item__pct {
+  flex: none;
+  color: var(--muted);
+  font-family: var(--font-num);
+  font-size: 9.5px;
+  font-weight: 600;
+}
+
+/* ---- 图表面板 ---- */
+.mes-chart-panel {
+  margin-bottom: 17px;
+  overflow: hidden;
+}
+
+.mes-chart-area {
+  width: 100%;
+  height: 252px;
+  padding: 0 12px 0 0;
+}
+
+.mes-chart-area--compact {
+  height: 216px;
+}
+
+.mes-chart-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 17px;
+  margin-bottom: 17px;
+}
+
+.mes-chart-col-8 { grid-column: span 8; }
+.mes-chart-col-4 { grid-column: span 4; }
+
+.mes-donut-area {
+  height: 178px;
+  padding: 0 12px;
+}
+
+/* ---- 工单表格 ---- */
+.data-table--workorders {
+  min-width: 1180px;
+}
+
+.data-table--devices {
+  min-width: 1080px;
+}
+
+.data-table tbody tr.wo-row,
+.data-table tbody tr.device-row {
+  cursor: pointer;
+}
+
+.data-table tbody tr.wo-row:focus-visible,
+.data-table tbody tr.device-row:focus-visible {
+  outline-offset: -2px;
+}
+
+.data-table tbody tr.is-affected {
+  background: var(--danger-soft);
+}
+
+.data-table tbody tr.is-affected:hover {
+  background: var(--danger-soft);
+  filter: brightness(0.985);
+}
+
+.data-table tbody tr.is-affected td:first-child {
+  box-shadow: inset 2px 0 0 var(--danger);
+}
+
+.data-table tbody tr.is-fault {
+  background: var(--danger-soft);
+}
+
+.data-table tbody tr.is-fault:hover {
+  background: var(--danger-soft);
+  filter: brightness(0.985);
+}
+
+.data-table tbody tr.is-fault td:first-child {
+  box-shadow: inset 2px 0 0 var(--danger);
+}
+
+.bom-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 6px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-family: var(--font-num);
+  font-size: 8.5px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.device-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  max-width: 200px;
+}
+
+.device-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 19px;
+  padding: 0 5px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--muted);
+  font-family: var(--font-num);
+  font-size: 8.5px;
+  white-space: nowrap;
+}
+
+.device-chip::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--success);
+}
+
+.device-chip--idle::before { background: var(--faint); }
+.device-chip--maintenance::before { background: var(--warning); }
+
+.device-chip--fault {
+  color: var(--danger);
+  border-color: rgba(217, 78, 78, 0.3);
+  background: var(--danger-soft);
+}
+
+.device-chip--fault::before { background: var(--danger); }
+
+.device-chip--linked {
+  border-color: var(--line-strong);
+  background: var(--surface-soft);
+}
+
+.wo-affected-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 19px;
+  margin-left: 5px;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: var(--danger);
+  color: #fff;
+  font-size: 8.5px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+  animation: mesPulse 1.9s ease-in-out infinite;
+}
+
+@keyframes mesPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.wo-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 112px;
+}
+
+.wo-progress__bar {
+  position: relative;
+  width: 74px;
+  height: 5px;
+  flex: none;
+  border-radius: 4px;
+  background: var(--surface-strong);
+  overflow: hidden;
+}
+
+.wo-progress__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.wo-progress__fill--done { background: var(--success); }
+.wo-progress__fill--paused { background: var(--warning); }
+
+.wo-progress__value {
+  color: var(--muted);
+  font-family: var(--font-num);
+  font-size: 9.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ---- 工单 / 设备详情弹窗 ---- */
+.modal--xl {
+  width: 960px;
+}
+
+.wo-detail__summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.wo-metric {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface-soft);
+}
+
+.wo-metric span {
+  display: block;
+  color: var(--faint);
+  font-size: 8.5px;
+}
+
+.wo-metric strong {
+  display: block;
+  margin-top: 2px;
+  color: var(--text-strong);
+  font-family: var(--font-num);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.wo-metric strong small {
+  color: var(--faint);
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.mes-section {
+  margin-top: 16px;
+}
+
+.mes-section:first-child {
+  margin-top: 0;
+}
+
+.mes-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text-strong);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.mes-section__head span {
+  color: var(--faint);
+  font-size: 9px;
+  font-weight: 400;
+}
+
+.mes-section__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.mes-section__chips .device-chip {
+  height: 22px;
+  padding: 0 7px;
+  font-size: 9px;
+}
+
+.op-steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.op-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.op-step:last-child {
+  border-bottom: 0;
+}
+
+.op-step__index {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  flex: none;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--surface-strong);
+  color: var(--faint);
+  font-family: var(--font-num);
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.op-step__index .icon {
+  width: 11px;
+  height: 11px;
+  stroke-width: 2.6;
+}
+
+.op-step--done .op-step__index {
+  background: var(--success);
+  color: #fff;
+}
+
+.op-step--doing .op-step__index {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 0 0 4px var(--primary-soft);
+}
+
+.op-step__body {
+  min-width: 0;
+  flex: 1;
+}
+
+.op-step__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.op-step__pct {
+  color: var(--faint);
+  font-family: var(--font-num);
+  font-size: 9px;
+}
+
+.op-step__meta {
+  margin-top: 1px;
+  color: var(--faint);
+  font-size: 8.5px;
+}
+
+.op-step__bar {
+  position: relative;
+  height: 4px;
+  margin-top: 5px;
+  border-radius: 4px;
+  background: var(--surface-strong);
+  overflow: hidden;
+}
+
+.op-step__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: inherit;
+  background: var(--line-strong);
+}
+
+.op-step__fill--done { background: var(--success); }
+.op-step__fill--doing { background: linear-gradient(90deg, var(--primary), var(--accent)); }
+
+.mes-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.mes-list__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.mes-list__item:last-child {
+  border-bottom: 0;
+}
+
+.mes-list__icon {
+  display: grid;
+  place-items: center;
+  width: 25px;
+  height: 25px;
+  flex: none;
+  margin-top: 1px;
+  border-radius: 7px;
+  background: var(--surface-strong);
+  color: var(--muted);
+}
+
+.mes-list__icon .icon {
+  width: 13px;
+  height: 13px;
+}
+
+.mes-list__body {
+  min-width: 0;
+  flex: 1;
+}
+
+.mes-list__title {
+  color: var(--text);
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.mes-list__meta {
+  margin-top: 1px;
+  color: var(--faint);
+  font-size: 8.5px;
+  line-height: 1.55;
+}
+
+.mes-list__value {
+  flex: none;
+  color: var(--text-strong);
+  font-family: var(--font-num);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.mes-list__item .badge {
+  flex: none;
+  height: 20px;
+  font-size: 8.5px;
+}
+
+.mini-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex: none;
+  height: 24px;
+  padding: 0 7px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+
+.mini-action .icon {
+  width: 11px;
+  height: 11px;
+}
+
+.mini-action:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.mini-action--danger:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.mini-action--success:hover {
+  color: var(--success);
+  border-color: var(--success);
+  background: var(--success-soft);
+}
+
+/* ---- 报工预览 ---- */
+.report-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 11px 13px;
+  border-radius: 9px;
+  background: var(--surface-soft);
+}
+
+.report-preview__item span {
+  display: block;
+  color: var(--faint);
+  font-size: 8.5px;
+}
+
+.report-preview__item b {
+  display: block;
+  margin-top: 1px;
+  color: var(--text-strong);
+  font-family: var(--font-num);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ---- 新建工单：设备多选 ---- */
+.device-check-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  max-height: 176px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-soft);
+  overflow-y: auto;
+}
+
+.device-check {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color 0.16s ease, background 0.16s ease;
+}
+
+.device-check input {
+  accent-color: var(--primary);
+  flex: none;
+}
+
+.device-check:has(input:checked) {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.device-check--disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.device-check__meta {
+  margin-left: auto;
+  color: var(--faint);
+  font-size: 8.5px;
+  white-space: nowrap;
+}
+
+/* ---- 设备状态看板 ---- */
+.device-board {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 17px;
+}
+
+.device-line {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.device-line__head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-soft);
+}
+
+.device-line__title {
+  color: var(--text-strong);
+  font-size: 12.5px;
+  font-weight: 650;
+}
+
+.device-line__code {
+  display: inline-flex;
+  align-items: center;
+  height: 19px;
+  padding: 0 6px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--faint);
+  font-family: var(--font-num);
+  font-size: 8.5px;
+}
+
+.device-line__stats {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-left: auto;
+  color: var(--faint);
+  font-size: 9.5px;
+}
+
+.device-line__stats strong {
+  color: var(--text);
+  font-family: var(--font-num);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.device-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  padding: 13px;
+}
+
+.device-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  padding: 11px 13px 10px 15px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.device-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--device-color, var(--faint));
+}
+
+.device-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+.device-card--running { --device-color: var(--success); }
+.device-card--idle { --device-color: var(--faint); }
+.device-card--fault {
+  --device-color: var(--danger);
+  border-color: rgba(217, 78, 78, 0.3);
+  background: linear-gradient(180deg, var(--danger-soft), var(--surface) 72%);
+}
+.device-card--maintenance { --device-color: var(--warning); }
+
+.device-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.device-card__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--device-color, var(--muted));
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.device-card__status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.device-card--running .device-card__status::before {
+  box-shadow: 0 0 0 3px rgba(10, 156, 126, 0.13);
+}
+
+.device-card--fault .device-card__status::before {
+  box-shadow: 0 0 0 3px rgba(217, 78, 78, 0.14);
+  animation: mesPulse 1.6s ease-in-out infinite;
+}
+
+.device-card__oee {
+  color: var(--faint);
+  font-family: var(--font-num);
+  font-size: 8px;
+}
+
+.device-card__name {
+  overflow: hidden;
+  color: var(--text-strong);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.device-card__meta {
+  overflow: hidden;
+  color: var(--faint);
+  font-size: 8.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.device-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--line);
+  color: var(--muted);
+  font-size: 8.5px;
+}
+
+.device-card__foot b {
+  color: var(--text);
+  font-family: var(--font-num);
+  font-size: 9px;
+  font-weight: 600;
+}
+
+/* ---- 设备详情 ---- */
+.device-hero {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 13px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--surface-soft);
+}
+
+.device-hero.is-fault {
+  border-color: rgba(217, 78, 78, 0.28);
+  background: linear-gradient(90deg, var(--danger-soft), var(--surface-soft));
+}
+
+.device-hero__mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex: none;
+  border-radius: 10px;
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.device-hero__mark .icon {
+  width: 20px;
+  height: 20px;
+}
+
+.device-hero.is-fault .device-hero__mark {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.device-hero__body {
+  min-width: 0;
+  flex: 1;
+}
+
+.device-hero__name {
+  color: var(--text-strong);
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.device-hero__meta {
+  margin-top: 2px;
+  color: var(--faint);
+  font-size: 9px;
+}
+
+.device-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+  margin-bottom: 12px;
+}
+
+.device-metric {
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface);
+}
+
+.device-metric span {
+  display: block;
+  color: var(--faint);
+  font-size: 8.5px;
+}
+
+.device-metric strong {
+  display: block;
+  margin-top: 2px;
+  color: var(--text-strong);
+  font-family: var(--font-num);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.device-metric strong small {
+  margin-left: 1px;
+  color: var(--faint);
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.device-status-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 4px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface-soft);
+}
+
+.device-status-actions__label {
+  margin-right: 2px;
+  color: var(--faint);
+  font-size: 9px;
+}
+
+.device-status-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 27px;
+  padding: 0 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 9.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+}
+
+.device-status-btn .icon {
+  width: 11px;
+  height: 11px;
+}
+
+.device-status-btn:hover {
+  color: var(--text);
+  border-color: var(--line-strong);
+}
+
+.device-status-btn.is-active {
+  border-color: var(--status-color, var(--primary));
+  background: var(--status-color, var(--primary));
+  color: #fff;
+}
+
+.device-status-btn--running { --status-color: var(--success); }
+.device-status-btn--idle { --status-color: var(--faint); }
+.device-status-btn--fault { --status-color: var(--danger); }
+.device-status-btn--maintenance { --status-color: var(--warning); }
+
+.device-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.device-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 7px;
+}
+
+/* ---- MES 响应式 ---- */
+@media (max-width: 1240px) {
+  .kpi-grid--5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .device-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1080px) {
+  .kpi-grid--5 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .mes-chart-col-8,
+  .mes-chart-col-4 {
+    grid-column: span 12;
+  }
+
+  .device-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .kpi-grid--5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mes-live-list {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .device-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .device-detail-grid > div + div .mes-section:first-child {
+    margin-top: 14px;
+  }
+}
+
+@media (max-width: 760px) {
+  .kpi-grid--5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mes-alert-banner {
+    padding: 12px 13px;
+    gap: 10px;
+    border-radius: 11px;
+    margin-bottom: 12px;
+  }
+
+  .mes-alert-banner__icon {
+    width: 31px;
+    height: 31px;
+    border-radius: 8px;
+  }
+
+  .mes-alert-banner__actions {
+    width: 100%;
+  }
+
+  .mes-alert-banner__actions .btn {
+    flex: 1;
+  }
+
+  .mes-chart-area {
+    height: 226px;
+    padding-right: 4px;
+  }
+
+  .mes-chart-grid {
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .mes-chart-panel {
+    margin-bottom: 12px;
+  }
+
+  .device-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .device-line__head {
+    padding: 11px 14px;
+  }
+
+  .device-line__stats {
+    gap: 10px;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .device-board {
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .device-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wo-detail__summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .device-check-grid {
+    grid-template-columns: 1fr;
+    max-height: 200px;
+  }
+
+  .device-hero {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .device-status-actions .form-help {
+    margin-left: 0 !important;
+    width: 100%;
+  }
+
+  .report-preview {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 540px) {
+  .modal--xl {
+    width: 100%;
+  }
+
+  .mes-live-item__meta {
+    font-size: 8px;
+  }
+
+  .device-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .device-line__stats {
+    gap: 8px;
+  }
+
+  .device-line__stats span {
+    font-size: 8.5px;
+  }
+
+  .mes-chart-area {
+    height: 210px;
+  }
+
+  .device-metric strong {
+    font-size: 15px;
+  }
+
+  .wo-progress {
+    min-width: 96px;
+  }
+
+  .wo-progress__bar {
+    width: 58px;
+  }
+
+  .mes-alert-banner__title {
+    font-size: 11px;
+  }
+
+  .mes-alert-banner__desc {
+    font-size: 9.5px;
+  }
+
+  .report-preview {
+    flex-wrap: wrap;
+  }
+
+  .report-preview__item {
+    flex: 1 1 30%;
+  }
+}
+
+@media (max-width: 400px) {
+  .device-metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .wo-detail__summary {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .device-card {
+    padding-right: 10px;
+  }
+}
+
+/* ---- MES 细节微调（表格可读性 / 超小屏导航） ---- */
+.data-table .id-tag,
+.data-table .bom-tag {
+  white-space: nowrap;
+}
+
+.data-table--workorders {
+  min-width: 1280px;
+}
+
+.data-table--workorders .cell-mono,
+.data-table--workorders .cell-money,
+.data-table--workorders tbody td:nth-child(2) .cell-primary {
+  white-space: nowrap;
+}
+
+@media (max-width: 400px) {
+  .nav-item {
+    gap: 2px;
+    padding: 4px 0;
+  }
+
+  .nav-item .icon {
+    width: 17px;
+    height: 17px;
+  }
+
+  .nav-label {
+    font-size: 6.8px;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  .mes-alert-banner__actions .btn {
+    flex: 1 1 100%;
+  }
+}
+
+/* 工单表：1440 视口内完整展示，窄屏仍由 .table-scroll 横向滚动 */
+.data-table--workorders {
+  min-width: 1120px;
+}
+
+.data-table--workorders thead th,
+.data-table--workorders tbody td {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.data-table--workorders thead th:first-child,
+.data-table--workorders tbody td:first-child {
+  padding-left: 16px;
+}
+
+.data-table--workorders thead th:last-child,
+.data-table--workorders tbody td:last-child {
+  padding-right: 16px;
+}
+
+.data-table--workorders tbody td:nth-child(2) .cell-primary {
+  white-space: normal;
+}
+
+.data-table--workorders .device-chips {
+  max-width: 150px;
+}
+
+.data-table--workorders .wo-affected-tag {
+  margin-left: 0;
+}
