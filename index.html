@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="智汇 ERP · 面向中小企业的一体化经营管理台演示。涵盖员工、客户、订单、库存与经营报表。">
+  <meta name="theme-color" content="#07172b">
+  <title>智汇 ERP · 中小企业经营管理台</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%232f63e8'/%3E%3Cstop offset='1' stop-color='%2316c9bd'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Cpath d='M9 23h3.4v-6.8H9V23Zm5.8 0h3.4V9h-3.4v14Zm5.8 0H24v-9.7h-3.4V23Z' fill='%23fff'/%3E%3C/svg%3E">
+  <script>
+    try {
+      var savedTheme = localStorage.getItem('zhihui_erp_theme_v1');
+      if (savedTheme === 'dark' || savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+    } catch (error) { /* 忽略隐私模式下的存储限制 */ }
+  </script>
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/data.js" defer></script>
+  <script src="assets/chart.js" defer></script>
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#viewRoot">跳到主要内容</a>
+
+  <!-- SVG Icons：内联 sprite，避免任何外部图标依赖 -->
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+    <defs>
+      <symbol id="i-grid" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" rx="2"></rect>
+        <rect x="14" y="3" width="7" height="7" rx="2"></rect>
+        <rect x="3" y="14" width="7" height="7" rx="2"></rect>
+        <rect x="14" y="14" width="7" height="7" rx="2"></rect>
+      </symbol>
+      <symbol id="i-users" viewBox="0 0 24 24">
+        <path d="M16 21v-1.8a4.2 4.2 0 0 0-4.2-4.2H6.2A4.2 4.2 0 0 0 2 19.2V21"></path>
+        <circle cx="9" cy="7.2" r="4.2"></circle>
+        <path d="M22 21v-1.8a4.2 4.2 0 0 0-3.2-4.1M16.2 3.2a4.2 4.2 0 0 1 0 8.1"></path>
+      </symbol>
+      <symbol id="i-user" viewBox="0 0 24 24">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </symbol>
+      <symbol id="i-building" viewBox="0 0 24 24">
+        <path d="M4 21V5.8A1.8 1.8 0 0 1 5.8 4h8.4A1.8 1.8 0 0 1 16 5.8V21"></path>
+        <path d="M16 9h2.2A1.8 1.8 0 0 1 20 10.8V21M2 21h20"></path>
+        <path d="M8 8h4M8 12h4M8 16h4"></path>
+      </symbol>
+      <symbol id="i-receipt" viewBox="0 0 24 24">
+        <path d="M5 3.5h14v17l-2.3-1.6-2.3 1.6-2.4-1.6-2.3 1.6L7.3 19 5 20.5z"></path>
+        <path d="M9 8h6M9 12h6M9 16h3"></path>
+      </symbol>
+      <symbol id="i-box" viewBox="0 0 24 24">
+        <path d="m21 8-9-5-9 5v8l9 5 9-5z"></path>
+        <path d="m3.3 7.9 8.7 5 8.7-5M12 21.5v-8.6"></path>
+      </symbol>
+      <symbol id="i-boxes" viewBox="0 0 24 24">
+        <path d="m12 2-7 4v6l7 4 7-4V6z"></path>
+        <path d="M5 6l7 4 7-4M12 12v8M7 17l-4 2v-7l4-2M17 17l4 2v-7l-4-2"></path>
+      </symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24">
+        <path d="M3 3v16.5A1.5 1.5 0 0 0 4.5 21H21"></path>
+        <path d="m7 15 4-4 3 3 6-7"></path>
+      </symbol>
+      <symbol id="i-pie" viewBox="0 0 24 24">
+        <path d="M21.2 15.2A9 9 0 1 1 8.8 2.8"></path>
+        <path d="M21 12a9 9 0 0 0-9-9v9z"></path>
+      </symbol>
+      <symbol id="i-settings" viewBox="0 0 24 24">
+        <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"></path>
+        <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 8.9 19.3a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.7 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.7 8.9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.54 1.7 1.7 0 0 0 10 3V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9v.1a1.7 1.7 0 0 0 1.55 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"></path>
+      </symbol>
+      <symbol id="i-search" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="7"></circle>
+        <path d="m20 20-3.9-3.9"></path>
+      </symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24">
+        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+        <path d="M13.7 21a2 2 0 0 1-3.4 0"></path>
+      </symbol>
+      <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></symbol>
+      <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"></path></symbol>
+      <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"></path></symbol>
+      <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></symbol>
+      <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"></path></symbol>
+      <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"></path></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></symbol>
+      <symbol id="i-edit" viewBox="0 0 24 24">
+        <path d="M12 20h9"></path>
+        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4z"></path>
+      </symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24">
+        <path d="M3 6h18M8 6V4h8v2M19 6l-1 15H6L5 6M10 11v5M14 11v5"></path>
+      </symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"></path></symbol>
+      <symbol id="i-check-circle" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"></circle><path d="m8 12 2.7 2.7L16.5 9"></path>
+      </symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24">
+        <path d="M2.1 12S5.6 5.5 12 5.5 21.9 12 21.9 12 18.4 18.5 12 18.5 2.1 12 2.1 12Z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+      </symbol>
+      <symbol id="i-eye-off" viewBox="0 0 24 24">
+        <path d="m3 3 18 18M10.6 6.2A9.3 9.3 0 0 1 12 6c6.4 0 9.9 6 9.9 6a17.4 17.4 0 0 1-2.4 3.1M6.6 6.7A16.5 16.5 0 0 0 2.1 12S5.6 18 12 18a9 9 0 0 0 4.1-1M9.9 9.9a3 3 0 0 0 4.2 4.2"></path>
+      </symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24">
+        <rect x="4" y="10" width="16" height="11" rx="2.5"></rect>
+        <path d="M8 10V7a4 4 0 0 1 8 0v3M12 15v2"></path>
+      </symbol>
+      <symbol id="i-download" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path>
+      </symbol>
+      <symbol id="i-refresh" viewBox="0 0 24 24">
+        <path d="M20 6v5h-5M4 18v-5h5"></path>
+        <path d="M19.5 11a7.5 7.5 0 0 0-12.8-5L4 8.5M4.5 13a7.5 7.5 0 0 0 12.8 5l2.7-2.5"></path>
+      </symbol>
+      <symbol id="i-alert-triangle" viewBox="0 0 24 24">
+        <path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.8 3h15.6a2 2 0 0 0 1.8-3L13.7 3.9a2 2 0 0 0-3.4 0Z"></path>
+        <path d="M12 9v4M12 17h.01"></path>
+      </symbol>
+      <symbol id="i-alert-circle" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"></circle><path d="M12 8v4.5M12 16h.01"></path>
+      </symbol>
+      <symbol id="i-trend-up" viewBox="0 0 24 24">
+        <path d="m3 17 6-6 4 4 8-9M15 6h6v6"></path>
+      </symbol>
+      <symbol id="i-trend-down" viewBox="0 0 24 24">
+        <path d="m3 7 6 6 4-4 8 9M15 18h6v-6"></path>
+      </symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="16" rx="2.5"></rect>
+        <path d="M8 3v4M16 3v4M3 10h18"></path>
+      </symbol>
+      <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 5h16l-6.4 7.4V19l-3.2 1.6v-8.2z"></path></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+      </symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14.2A8.3 8.3 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"></path></symbol>
+      <symbol id="i-logout" viewBox="0 0 24 24">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"></path>
+      </symbol>
+      <symbol id="i-inbound" viewBox="0 0 24 24">
+        <path d="M12 3v11M8 10l4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path>
+      </symbol>
+      <symbol id="i-outbound" viewBox="0 0 24 24">
+        <path d="M12 14V3M8 7l4-4 4 4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path>
+      </symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="m3.5 6.5 8.5 6 8.5-6"></path>
+      </symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24">
+        <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1Z"></path>
+      </symbol>
+      <symbol id="i-map-pin" viewBox="0 0 24 24">
+        <path d="M20 10c0 5.5-8 12-8 12s-8-6.5-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="2.8"></circle>
+      </symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path>
+      </symbol>
+      <symbol id="i-file-text" viewBox="0 0 24 24">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <path d="M14 2v6h6M8 13h8M8 17h8M8 9h2"></path>
+      </symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></symbol>
+      <symbol id="i-info" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"></circle><path d="M12 16v-4M12 8h.01"></path>
+      </symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24">
+        <path d="m9 4 6 0M10 4v6l-3.5 4.2A1.5 1.5 0 0 0 7.7 17h8.6a1.5 1.5 0 0 0 1.2-2.8L14 10V4M12 17v4"></path>
+      </symbol>
+      <symbol id="i-wallet" viewBox="0 0 24 24">
+        <path d="M20 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H4"></path>
+        <path d="M16 14h.01"></path>
+      </symbol>
+      <symbol id="i-target" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1"></circle>
+      </symbol>
+      <symbol id="i-database" viewBox="0 0 24 24">
+        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+        <path d="M21 12c0 1.7-4 3-9 3s-9-1.3-9-3M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"></path>
+      </symbol>
+      <symbol id="i-inbox" viewBox="0 0 24 24">
+        <path d="M22 12h-6l-2 3h-4l-2-3H2"></path>
+        <path d="M5.5 5.1 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.9A2 2 0 0 0 16.8 4H7.2a2 2 0 0 0-1.7 1.1Z"></path>
+      </symbol>
+      <symbol id="i-sparkles" viewBox="0 0 24 24">
+        <path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"></path>
+      </symbol>
+      <symbol id="i-more" viewBox="0 0 24 24">
+        <circle cx="5" cy="12" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- ===================== 登录页 ===================== -->
+  <div class="login-screen" id="loginScreen">
+    <section class="login-brand" aria-label="智汇 ERP 产品介绍">
+      <div class="login-brand__top">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="brand__copy">
+            <span class="brand__name">智汇 ERP <em>PRO</em></span>
+            <span class="brand__sub">ZHIHUI · BUSINESS OS</span>
+          </span>
+        </div>
+        <span class="login-env">DEMO · 演示环境</span>
+      </div>
+
+      <div class="login-copy">
+        <span class="login-badge"><span><svg class="icon icon--xs"><use href="#i-sparkles"></use></svg></span>为成长型企业而设计</span>
+        <h1>让经营数据<br><em>成为增长信号。</em></h1>
+        <p>连接人、货、客与订单，把分散的经营动作收进一个清晰的工作台。看得见的库存，跟得住的订单，算得清的增长。</p>
+        <div class="login-signals">
+          <span class="login-signal"><svg class="icon icon--xs"><use href="#i-users"></use></svg>120 人协同团队</span>
+          <span class="login-signal"><svg class="icon icon--xs"><use href="#i-boxes"></use></svg>进销存一体化</span>
+          <span class="login-signal"><svg class="icon icon--xs"><use href="#i-chart"></use></svg>经营数据实时可视</span>
+        </div>
+
+        <div class="login-preview" aria-hidden="true">
+          <div class="preview-topbar">
+            <span class="preview-topbar__label"><svg class="icon icon--xs"><use href="#i-grid"></use></svg>经营驾驶舱 / 本月概览</span>
+            <span class="preview-live">LIVE SYNC</span>
+          </div>
+          <div class="preview-kpis">
+            <div class="preview-kpi">
+              <small>本月销售额</small>
+              <b>¥1,286,400</b>
+              <i>+27.3% MoM</i>
+            </div>
+            <div class="preview-kpi">
+              <small>重点订单</small>
+              <b>20</b>
+              <i>8 笔本月新增</i>
+            </div>
+            <div class="preview-kpi">
+              <small>库存健康度</small>
+              <b>92.4</b>
+              <i>4 项待补货</i>
+            </div>
+          </div>
+          <div class="preview-chart">
+            <svg viewBox="0 0 540 132" role="presentation">
+              <defs>
+                <linearGradient id="preview-area" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#3d78ff" stop-opacity=".32"></stop>
+                  <stop offset="1" stop-color="#3d78ff" stop-opacity="0"></stop>
+                </linearGradient>
+                <linearGradient id="preview-line" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#6595ff"></stop>
+                  <stop offset="1" stop-color="#3cd9cd"></stop>
+                </linearGradient>
+              </defs>
+              <g stroke="rgba(133,173,230,.11)" stroke-width="1" stroke-dasharray="3 6">
+                <line x1="8" y1="28" x2="532" y2="28"></line>
+                <line x1="8" y1="62" x2="532" y2="62"></line>
+                <line x1="8" y1="96" x2="532" y2="96"></line>
+              </g>
+              <path d="M8 105 C56 99 74 68 116 75 C160 82 174 55 220 63 C266 71 280 43 324 50 C365 57 384 30 430 35 C472 40 493 20 532 24 L532 120 L8 120 Z" fill="url(#preview-area)"></path>
+              <path d="M8 105 C56 99 74 68 116 75 C160 82 174 55 220 63 C266 71 280 43 324 50 C365 57 384 30 430 35 C472 40 493 20 532 24" fill="none" stroke="url(#preview-line)" stroke-width="2.3" stroke-linecap="round"></path>
+              <circle cx="532" cy="24" r="4.5" fill="#3cd9cd"></circle>
+              <circle cx="532" cy="24" r="10" fill="#3cd9cd" opacity=".12"></circle>
+              <g fill="rgba(159,189,228,.42)" font-size="8.5" font-family="Bahnschrift, sans-serif">
+                <text x="8" y="130">06月</text><text x="111" y="130">07月</text><text x="215" y="130">08月</text><text x="319" y="130">09月</text><text x="423" y="130">10月</text><text x="508" y="130">11月</text>
+              </g>
+            </svg>
+            <div class="preview-float">
+              <span>库存周转率</span>
+              <strong>↑ 18.4%</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="login-brand__foot">
+        <span>© 2026 智汇科技 · 仅作为作品集演示</span>
+        <a href="https://deerflow.tech" target="_blank" rel="noopener noreferrer">Created By Deerflow</a>
+      </div>
+    </section>
+
+    <section class="login-form-side">
+      <div class="login-card">
+        <div class="login-mobile-brand">
+          <div class="brand">
+            <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="brand__copy">
+              <span class="brand__name">智汇 ERP</span>
+              <span class="brand__sub">ZHIHUI · BUSINESS OS</span>
+            </span>
+          </div>
+          <span class="login-env" style="border-color: var(--line); background: var(--surface-soft); color: var(--muted);">演示环境</span>
+        </div>
+
+        <div class="login-heading">
+          <span class="login-eyebrow">Welcome back</span>
+          <h2>登录智汇工作台</h2>
+          <p>用一个账号，掌握团队、客户与每一笔经营进展。</p>
+        </div>
+
+        <form class="login-form" id="loginForm" novalidate>
+          <div class="field">
+            <label for="loginUser">账号</label>
+            <div class="input-shell">
+              <svg class="icon field-icon"><use href="#i-user"></use></svg>
+              <input id="loginUser" name="username" type="text" value="admin" placeholder="请输入账号" autocomplete="username" spellcheck="false" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="loginPass">密码</label>
+            <div class="input-shell">
+              <svg class="icon field-icon"><use href="#i-lock"></use></svg>
+              <input id="loginPass" name="password" type="password" value="123456" placeholder="请输入密码" autocomplete="current-password" required>
+              <button class="input-shell__action" id="togglePassword" type="button" aria-label="显示密码" title="显示密码">
+                <svg class="icon icon--sm"><use href="#i-eye" id="passwordEyeIcon"></use></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="login-error" id="loginError" role="alert" hidden>
+            <svg class="icon icon--sm"><use href="#i-alert-circle"></use></svg>
+            <span id="loginErrorText">账号或密码不正确，请重试。</span>
+          </div>
+
+          <button class="btn btn--primary login-submit" id="loginBtn" type="submit">
+            <span class="login-btn-label">进入工作台</span>
+            <svg class="icon"><use href="#i-arrow-right"></use></svg>
+          </button>
+
+          <div class="login-demo">
+            <div class="login-demo__copy">
+              <svg class="icon icon--sm"><use href="#i-info"></use></svg>
+              <span>演示账号 <code>admin</code> / <code>123456</code></span>
+            </div>
+            <button id="fillDemoBtn" type="button">一键填入</button>
+          </div>
+
+          <p class="login-secure">
+            <svg class="icon icon--xs"><use href="#i-shield"></use></svg>
+            登录状态保存在本机，演示数据不会上传服务器
+          </p>
+        </form>
+      </div>
+
+      <div class="login-form-foot">
+        <span>© 2026 智汇科技 · 中小企业经营管理台</span><br>
+        <a href="https://deerflow.tech" target="_blank" rel="noopener noreferrer">Created By Deerflow</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===================== 应用外壳 ===================== -->
+  <div class="app-shell" id="appShell" hidden>
+    <aside class="sidebar" aria-label="侧边导航">
+      <div class="sidebar__brand">
+        <a class="brand" href="#/dashboard" aria-label="智汇 ERP 工作台">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="brand__copy">
+            <span class="brand__name">智汇 ERP</span>
+            <span class="brand__sub">ZHIHUI · BUSINESS OS</span>
+          </span>
+        </a>
+        <span class="sidebar__version">v2.4</span>
+      </div>
+
+      <div class="workspace-card">
+        <span class="workspace-card__mark"><svg class="icon"><use href="#i-building"></use></svg></span>
+        <span class="workspace-card__copy">
+          <span class="workspace-card__label">当前工作空间</span>
+          <span class="workspace-card__name" id="sidebarCompanyName">深圳智汇科技有限公司</span>
+        </span>
+        <span class="workspace-card__dot" title="工作空间运行中"></span>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="主导航">
+        <div class="nav-section">
+          <div class="nav-section__label">Overview</div>
+          <a class="nav-item" href="#/dashboard" data-view="dashboard" title="工作台">
+            <svg class="icon"><use href="#i-grid"></use></svg>
+            <span class="nav-label">工作台</span>
+          </a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section__label">Operations</div>
+          <a class="nav-item" href="#/employees" data-view="employees" title="员工管理">
+            <svg class="icon"><use href="#i-users"></use></svg>
+            <span class="nav-label">员工管理</span>
+          </a>
+          <a class="nav-item" href="#/customers" data-view="customers" title="客户管理">
+            <svg class="icon"><use href="#i-building"></use></svg>
+            <span class="nav-label">客户管理</span>
+          </a>
+          <a class="nav-item" href="#/orders" data-view="orders" title="订单管理">
+            <svg class="icon"><use href="#i-receipt"></use></svg>
+            <span class="nav-label">订单管理</span>
+            <span class="nav-badge" id="ordersNavBadge" hidden>0</span>
+          </a>
+          <a class="nav-item" href="#/inventory" data-view="inventory" title="库存管理">
+            <svg class="icon"><use href="#i-box"></use></svg>
+            <span class="nav-label">库存管理</span>
+            <span class="nav-badge nav-badge--alert" id="stockNavBadge" hidden>0</span>
+          </a>
+          <a class="nav-item" href="#/reports" data-view="reports" title="报表中心">
+            <svg class="icon"><use href="#i-chart"></use></svg>
+            <span class="nav-label">报表中心</span>
+          </a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section__label">System</div>
+          <a class="nav-item" href="#/settings" data-view="settings" title="系统设置">
+            <svg class="icon"><use href="#i-settings"></use></svg>
+            <span class="nav-label">系统设置</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar__spacer"></div>
+
+      <div class="health-card">
+        <div class="health-card__head">
+          <span>系统运行状态</span>
+          <span class="health-status">正常</span>
+        </div>
+        <div class="health-card__bar"></div>
+        <div class="health-card__foot">
+          <span>数据已同步</span>
+          <span>2 分钟前</span>
+        </div>
+      </div>
+      <div class="sidebar-credit">
+        <span>ZHIHUI BUSINESS OS</span>
+        <a href="https://deerflow.tech" target="_blank" rel="noopener noreferrer" title="Created By Deerflow">Created By Deerflow</a>
+      </div>
+    </aside>
+
+    <div class="app-body">
+      <header class="topbar">
+        <div class="mobile-brand">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="mobile-brand__text">
+            <strong>智汇 ERP</strong>
+            <span id="mobilePageName">工作台</span>
+          </span>
+        </div>
+
+        <div class="topbar-context">
+          <span class="topbar-context__dot"></span>
+          <span>运营中心</span>
+          <span class="topbar-context__sep">/</span>
+          <strong id="topbarContextLabel">工作台</strong>
+          <span class="topbar-context__sep">·</span>
+          <span class="topbar-date" id="topbarDate">2026.11.08</span>
+        </div>
+
+        <button class="global-search" id="globalSearchBtn" type="button" aria-label="全局搜索，快捷键斜杠" title="全局搜索（/）">
+          <svg class="icon icon--sm"><use href="#i-search"></use></svg>
+          <span class="global-search__text">搜索员工、客户、订单…</span>
+          <kbd>/</kbd>
+        </button>
+
+        <div class="topbar-actions">
+          <button class="icon-btn topbar-icon" id="themeToggleBtn" type="button" aria-label="切换深浅主题" title="切换主题">
+            <svg class="icon icon--sm" id="themeToggleIcon"><use href="#i-moon"></use></svg>
+          </button>
+          <button class="icon-btn topbar-icon" id="notificationToggle" type="button" aria-label="查看通知" aria-expanded="false" aria-controls="notificationPanel" title="通知">
+            <svg class="icon icon--sm"><use href="#i-bell"></use></svg>
+          </button>
+          <span class="topbar-actions__divider"></span>
+          <button class="user-trigger" id="userMenuToggle" type="button" aria-expanded="false" aria-controls="userMenu" aria-label="打开用户菜单">
+            <span class="avatar avatar--user" aria-hidden="true">王</span>
+            <span class="user-trigger__copy">
+              <span class="user-trigger__name">王敏</span>
+              <span class="user-trigger__role">运营主管</span>
+            </span>
+            <svg class="icon"><use href="#i-chevron-down"></use></svg>
+          </button>
+
+          <div class="popover notification-panel" id="notificationPanel" hidden>
+            <div class="popover-head">
+              <div>
+                <div class="popover-head__title">通知中心</div>
+                <div class="popover-head__sub" id="notificationSub">3 条经营动态待查看</div>
+              </div>
+              <button class="text-btn" type="button" data-action="mark-all-read">全部已读</button>
+            </div>
+            <div class="notification-list" id="notificationList"></div>
+            <div class="popover-foot">
+              <button class="text-btn" type="button" data-action="close-notifications">收起通知 <svg class="icon icon--xs"><use href="#i-chevron-down"></use></svg></button>
+            </div>
+          </div>
+
+          <div class="popover user-menu" id="userMenu" hidden>
+            <div class="user-menu__head">
+              <span class="avatar avatar--user" aria-hidden="true">王</span>
+              <div>
+                <strong>王敏</strong>
+                <span>运营主管 · 深圳智汇科技</span>
+              </div>
+            </div>
+            <div class="user-menu__list">
+              <button class="user-menu__item" type="button" data-user-nav="dashboard">
+                <svg class="icon"><use href="#i-grid"></use></svg>返回工作台
+              </button>
+              <button class="user-menu__item" type="button" data-user-nav="settings">
+                <svg class="icon"><use href="#i-settings"></use></svg>系统设置
+              </button>
+              <div class="user-menu__divider"></div>
+              <button class="user-menu__item user-menu__item--danger" id="logoutBtn" type="button">
+                <svg class="icon"><use href="#i-logout"></use></svg>退出登录
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="main" id="mainContent">
+        <div class="view-root" id="viewRoot"></div>
+        <footer class="app-footer">
+          <div class="app-footer__left">
+            <span>智汇 ERP v2.4.1</span>
+            <span class="app-footer__dot">·</span>
+            <span>演示数据仅保存在本机浏览器</span>
+            <span class="app-footer__mark"></span>
+            <span>只为演示，不连接真实后端</span>
+          </div>
+          <a class="app-footer__brand" href="https://deerflow.tech" target="_blank" rel="noopener noreferrer">Created By Deerflow</a>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <!-- ===================== 全局搜索浮层 ===================== -->
+  <div class="command-overlay" id="commandOverlay" hidden>
+    <div class="command-dialog" role="dialog" aria-modal="true" aria-label="全局搜索">
+      <div class="command-search">
+        <svg class="icon"><use href="#i-search"></use></svg>
+        <input id="commandInput" type="text" autocomplete="off" placeholder="搜索功能、员工、客户、订单或商品…" aria-label="搜索内容">
+        <span class="command-esc">ESC</span>
+      </div>
+      <div class="command-results" id="commandResults"></div>
+      <div class="command-foot">
+        <span><kbd>↑</kbd><kbd>↓</kbd>选择</span>
+        <span><kbd>↵</kbd>打开</span>
+        <span><kbd>esc</kbd>关闭</span>
+        <span class="command-foot__brand">智汇 ERP · SEARCH</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalRoot"></div>
+  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="false"></div>
+
+  <noscript>
+    <div style="position:fixed;inset:0;z-index:999;display:grid;place-items:center;background:#f2f5fa;color:#1a2a41;font-family:system-ui,sans-serif;text-align:center;padding:24px;">
+      <div><strong style="font-size:18px;">需要启用 JavaScript</strong><p style="margin-top:8px;color:#6b7d94;font-size:13px;">智汇 ERP 演示依赖浏览器脚本运行，请在浏览器设置中启用 JavaScript。</p></div>
+    </div>
+  </noscript>
+</body>
+</html>
